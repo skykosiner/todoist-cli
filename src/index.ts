@@ -13,15 +13,15 @@ const todoist = new Todoist(config);
 const command = process.argv[2];
 
 switch (command) {
-    case "--today":
+    case "today":
         const options = process.argv.slice(3);
         todoist.getToday(options);
         break;
-    case "--close":
+    case "close":
         const id = process.argv[3];
         todoist.closeTask(id);
         break;
-    case "--help":
+    case "help":
         console.log(getHelp());
         break;
     default:

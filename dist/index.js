@@ -11,15 +11,15 @@ if (!config.token) {
 var todoist = new todoist_1.Todoist(config);
 var command = process.argv[2];
 switch (command) {
-    case "--today":
+    case "today":
         var options = process.argv.slice(3);
         todoist.getToday(options);
         break;
-    case "--close":
+    case "close":
         var id = process.argv[3];
         todoist.closeTask(id);
         break;
-    case "--help":
+    case "help":
         console.log((0, help_1.getHelp)());
         break;
     default:
