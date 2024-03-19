@@ -10,6 +10,5 @@ export function getConfig(configPath?: string): Config {
     }
 
     const config: Config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-
     return config
 }

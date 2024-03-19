@@ -1,4 +1,5 @@
 import { getConfig } from "./config";
+import { getHelp } from "./help";
 import { Todoist } from "./todoist";
 
 const config = getConfig();
@@ -9,8 +10,6 @@ if (!config.token) {
 }
 
 const todoist = new Todoist(config);
-
-// Read the $1 argument from the command line
 const command = process.argv[2];
 
 switch (command) {
@@ -20,5 +19,11 @@ switch (command) {
     case "--close":
         const id = process.argv[3];
         todoist.closeTask(id);
+        break;
+    case "--help":
+        console.log(getHelp());
+        break;
+    default:
+        console.log(getHelp());
         break;
 }
