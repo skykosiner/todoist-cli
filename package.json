@@ -1,19 +1,20 @@
 {
-  "name": "todoist-cli",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^20.11.29"
-  },
-  "dependencies": {
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.2"
-  }
+    "name": "todoist-cli",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc ./src/index.ts --outDir ./dist",
+        "start": "ts-node ./src/index.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^20.11.29"
+    },
+    "dependencies": {
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.2"
+    }
 }

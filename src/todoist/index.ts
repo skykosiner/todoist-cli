@@ -1,6 +1,6 @@
 import { Config } from "../config";
 
-export type Todo = {
+type Todo = {
     id: number,
     content: string,
     is_completed: boolean,
@@ -22,7 +22,7 @@ export class Todoist {
         }
     }
 
-    private async getActiveTodos(): Promise<Todo[]> {
+    private async getActiveTodos(): Promise<Array<Todo>> {
         try {
             const resp = await fetch(`${this.apiUrl}/tasks`, {
                 headers: {
@@ -37,7 +37,7 @@ export class Todoist {
         }
     }
 
-    public async getToday() {
+    public async getToday(options: Array<string>) {
         const tasks = await this.getActiveTodos();
         const today = new Date().toISOString().split("T")[0];
         const formatedTasks: string[] = [];
@@ -54,7 +54,11 @@ export class Todoist {
 
         for (const task of formatedTasks) {
             if (task.startsWith("Overdue")) {
-                console.log(`\x1b[31m${task}\x1b[0m`);
+                for (const option of options) {
+                    if (option === "--color") {
+                        console.log(`\x1b[31m${task}\x1b[0m`);
+                    }
+                }
             } else {
                 console.log(task);
             }

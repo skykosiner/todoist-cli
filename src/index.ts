@@ -14,7 +14,8 @@ const command = process.argv[2];
 
 switch (command) {
     case "--today":
-        todoist.getToday();
+        const options = process.argv.slice(3);
+        todoist.getToday(options);
         break;
     case "--close":
         const id = process.argv[3];
