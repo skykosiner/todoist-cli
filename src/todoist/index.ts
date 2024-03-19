@@ -79,4 +79,19 @@ export class Todoist {
             console.error("Error closing task");
         }
     }
+
+    public async deleteTask(id: string) {
+        const resp = await fetch(`${this.apiUrl}/tasks/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${this.config.token}`,
+            }
+        });
+
+        if (resp.status === 204) {
+            console.log("Task deleted successfully");
+        } else {
+            console.error("Error deleting task");
+        }
+    }
 }

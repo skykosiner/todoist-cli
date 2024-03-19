@@ -19,6 +19,9 @@ switch (command) {
         var id = process.argv[3];
         todoist.closeTask(id);
         break;
+    case "delete":
+        var id2 = process.argv[3];
+        todoist.deleteTask(id2);
     case "help":
         console.log((0, help_1.getHelp)());
         break;

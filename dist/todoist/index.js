@@ -131,6 +131,30 @@ var Todoist = /** @class */ (function () {
             });
         });
     };
+    Todoist.prototype.deleteTask = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var resp;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, fetch("".concat(this.apiUrl, "/tasks/").concat(id), {
+                            method: "DELETE",
+                            headers: {
+                                Authorization: "Bearer ".concat(this.config.token),
+                            }
+                        })];
+                    case 1:
+                        resp = _a.sent();
+                        if (resp.status === 204) {
+                            console.log("Task deleted successfully");
+                        }
+                        else {
+                            console.error("Error deleting task");
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     return Todoist;
 }());
 exports.Todoist = Todoist;
