@@ -2,6 +2,7 @@ import { getConfig } from "./config";
 import { getHelp } from "./help";
 import { Todoist } from "./todoist";
 
+// Get --config flag from command line
 const config = getConfig();
 
 if (!config.token) {
@@ -24,6 +25,13 @@ switch (command) {
     case "delete":
         const id2 = process.argv[3];
         todoist.deleteTask(id2);
+    case "projects":
+        todoist.getProjectsList();
+        break;
+    case "project":
+        const projectId = process.argv[3];
+        todoist.getProjectTasks(projectId);
+        break;
     case "help":
         console.log(getHelp());
         break;

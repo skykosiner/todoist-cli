@@ -69,6 +69,30 @@ var Todoist = /** @class */ (function () {
             });
         });
     };
+    Todoist.prototype.getProjects = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var resp, e_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, fetch("".concat(this.apiUrl, "/projects"), {
+                                headers: {
+                                    Authorization: "Bearer ".concat(this.config.token),
+                                }
+                            })];
+                    case 1:
+                        resp = _a.sent();
+                        return [2 /*return*/, resp.json()];
+                    case 2:
+                        e_2 = _a.sent();
+                        //@ts-ignore
+                        throw new Error("Error fetching projects: ".concat(e_2.message));
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
     Todoist.prototype.getToday = function (options) {
         return __awaiter(this, void 0, void 0, function () {
             var tasks, today, formatedTasks, _i, tasks_1, task, _a, formatedTasks_1, task, _b, options_1, option;
@@ -82,6 +106,7 @@ var Todoist = /** @class */ (function () {
                         for (_i = 0, tasks_1 = tasks; _i < tasks_1.length; _i++) {
                             task = tasks_1[_i];
                             if (task.due && task.due.date < today && !task.is_completed) {
+                                console.log("Overdue: ".concat(task.content, " | ").concat(task.id));
                                 formatedTasks.push("Overdue: ".concat(task.content, " | ").concat(task.id));
                             }
                             if (task.due && task.due.date === today && !task.is_completed) {
@@ -149,6 +174,53 @@ var Todoist = /** @class */ (function () {
                         }
                         else {
                             console.error("Error deleting task");
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Todoist.prototype.getProjectsList = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var projects, _i, projects_1, project;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getProjects()];
+                    case 1:
+                        projects = _a.sent();
+                        for (_i = 0, projects_1 = projects; _i < projects_1.length; _i++) {
+                            project = projects_1[_i];
+                            console.log("".concat(project.name, " | ").concat(project.id));
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Todoist.prototype.getProjectTasks = function (projectId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var tasks, formatedTasks, _i, tasks_2, task, _a, formatedTasks_2, task;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        if (isNaN(projectId)) {
+                            console.error("Please provide a valid project id.");
+                            return [2 /*return*/];
+                        }
+                        console.log("Tasks for project ".concat(projectId, ":"));
+                        return [4 /*yield*/, this.getActiveTodos()];
+                    case 1:
+                        tasks = _b.sent();
+                        formatedTasks = [];
+                        for (_i = 0, tasks_2 = tasks; _i < tasks_2.length; _i++) {
+                            task = tasks_2[_i];
+                            if (parseInt(task.project_id) === projectId && !task.is_completed) {
+                                formatedTasks.push("".concat(task.content, " | ").concat(task.id));
+                            }
+                        }
+                        for (_a = 0, formatedTasks_2 = formatedTasks; _a < formatedTasks_2.length; _a++) {
+                            task = formatedTasks_2[_a];
+                            console.log(task);
                         }
                         return [2 /*return*/];
                 }

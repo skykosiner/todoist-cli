@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var config_1 = require("./config");
 var help_1 = require("./help");
 var todoist_1 = require("./todoist");
+// Get --config flag from command line
 var config = (0, config_1.getConfig)();
 if (!config.token) {
     console.error("No token found in config file. Plaese check the README for instructions on how to set up the config file.");
@@ -22,6 +23,14 @@ switch (command) {
     case "delete":
         var id2 = process.argv[3];
         todoist.deleteTask(id2);
+    case "projects":
+        todoist.getProjectsList();
+        break;
+    case "project":
+        var projectId = process.argv[3];
+        console.log(projectId);
+        todoist.getProjectTasks(parseInt(projectId));
+        break;
     case "help":
         console.log((0, help_1.getHelp)());
         break;
